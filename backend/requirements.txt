@@ -10,3 +10,4 @@ chromadb>=0.5.5
 pandas>=1.5.0
 openpyxl>=3.1.0
 python-multipart>=0.0.9
+PyYAML
