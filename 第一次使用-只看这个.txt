@@ -1,0 +1,45 @@
+【Multi-Agent Playground — 小白打开网页】
+
+这个文件夹里有两个部分：① 后端（黑色窗口 1） ② 前端页面（黑色窗口 2 + 浏览器）
+
+————————————
+一、先准备密钥（只要做一次）
+————————————
+1. 用文本编辑打开本文件夹里的 .env.example，另存为文件名改成：.env
+2. 在 .env 里找到 OPENAI_API_KEY= 后面填你的 Key（从 OpenAI 或兼容的模型服务来）
+
+————————————
+二、打开后端（黑色窗口 1）
+————————————
+1. 打开「终端」
+2. 把下面三行**整段复制**到终端里回车（路径若不同请改成你本机的）：
+
+   cd "/Users/zhangyilong/Downloads/guardia_-multi-agent-ugc-内容审核系统 2/backend"
+   python3 -m venv .venv
+   source .venv/bin/activate
+   pip install -r requirements.txt
+   uvicorn app.main:app --host 127.0.0.1 --port 8011 --reload
+
+3. 看到类似 Uvicorn running 就说明后端好了。**不要关这个窗口。**
+
+————————————
+三、打开前端（黑色窗口 2 + 浏览器）
+————————————
+1. 再新建一个「终端」窗口
+2. 复制下面**整段**回车：
+
+   cd "/Users/zhangyilong/Downloads/guardia_-multi-agent-ugc-内容审核系统 2/frontend"
+   npm install
+   npm run dev
+
+3. 终端里会出现 Local: http://127.0.0.1:5173
+4. 打开浏览器，地址栏输入（两个任选一个）：
+   http://127.0.0.1:5173
+   或 http://localhost:5173
+
+————————————
+说明
+————————————
+· 以前用 http://localhost:3000 的是另一个小演示；**这个项目的前端是 5173 端口。**
+· 关掉了带 npm run dev 的窗口，网页就打不开了；关掉了后端的窗口，页面上会连不上数据。
+· 更细的说明请看 README.md；接口表请看 docs/FRONTEND_API.md

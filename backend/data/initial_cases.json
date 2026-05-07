@@ -1,0 +1,53 @@
+[
+  {
+    "id": "CASE_001",
+    "text": "这篇文章公然攻击政府政策，煽动群众上街抗议",
+    "verdict": "violation",
+    "violation_reason": "煽动集会，攻击政府，属于政治敏感内容",
+    "category": "政治敏感",
+    "confidence": 0.95,
+    "matched_rules": ["RULE_001"],
+    "source": "manual"
+  },
+  {
+    "id": "CASE_002",
+    "text": "点击链接观看高清无码视频，全程露点",
+    "verdict": "violation",
+    "violation_reason": "传播色情内容，露点描述",
+    "category": "色情",
+    "confidence": 0.98,
+    "matched_rules": ["RULE_005"],
+    "source": "manual"
+  },
+  {
+    "id": "CASE_003",
+    "text": "今天天气真好，适合出去散步",
+    "verdict": "normal",
+    "violation_reason": "",
+    "category": "未分类",
+    "confidence": 0.99,
+    "matched_rules": [],
+    "source": "manual"
+  },
+  {
+    "id": "CASE_004",
+    "text": "教你如何在网络赌博中稳赚不赔，包赢技巧",
+    "verdict": "violation",
+    "violation_reason": "宣传赌博，诱导参与非法活动",
+    "category": "赌博",
+    "confidence": 0.92,
+    "matched_rules": ["RULE_010"],
+    "source": "manual"
+  },
+  {
+    "id": "CASE_005",
+    "text": "某品牌手机新品发布，配置全面升级",
+    "verdict": "normal",
+    "violation_reason": "",
+    "category": "未分类",
+    "confidence": 0.95,
+    "matched_rules": [],
+    "source": "manual"
+  }
+]
+

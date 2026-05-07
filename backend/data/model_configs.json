@@ -1,0 +1,26 @@
+[
+  {
+    "id": "9603e707-a94d-464b-a5a8-644f32b6e551",
+    "name": "新配置",
+    "provider": "qwen",
+    "api_key": "sk-4fbff6d83a3547df9a8edd4933de8e13",
+    "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+    "small_model": "qwen3.5-27b",
+    "strong_model": "qwen3.5-27b",
+    "embedding_model": "qwen3.5-27b",
+    "is_default": false,
+    "enabled": false
+  },
+  {
+    "id": "66224c3d-3498-4022-8689-b85f837d0520",
+    "name": "新配置",
+    "provider": "custom",
+    "api_key": "sk-LTUhZ4hH3ZbvJjzdGFCsEzAZoWxVi97xX7tysqi3wg9SN6CR",
+    "base_url": "https://ai.juguang.chat/v1",
+    "small_model": "gemini-2.5-pro-thinking",
+    "strong_model": "gemini-2.5-pro-thinking",
+    "embedding_model": "",
+    "is_default": false,
+    "enabled": true
+  }
+]

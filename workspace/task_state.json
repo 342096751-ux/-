@@ -1,0 +1,21 @@
+{
+  "task_id": "audit_001",
+  "submitted_text": "洛克王国真好玩啊",
+  "status": "in_progress",
+  "current_step": "initial_analysis",
+  "completed_steps": [
+    "received_text",
+    "identified_workspace"
+  ],
+  "risk_types_to_check": [
+    "political",
+    "pornographic",
+    "abusive",
+    "advertisement",
+    "sarcasm",
+    "negative_values"
+  ],
+  "agents_invoked": [],
+  "known_issues": [],
+  "timestamp": "2025-01-10T10:00:00Z"
+}

@@ -1,0 +1,28 @@
+[
+  {
+    "id": "1",
+    "text": "也可以说是献祭全家人阳寿后我终于胡一把的游戏，一个每天给发牌员、设计师过清明节的挲芘游戏",
+    "verdict": "violation",
+    "violation_reason": "“献祭全家人阳寿”“设计师过清明节”都是对他人家庭的恶意死亡辱骂，属于规则中“攻击侮辱或进行死亡诅咒他人家庭的言论”，所以正确的思路是不通过\"",
+    "category": "未分类",
+    "confidence": 0.8,
+    "matched_rules": [],
+    "source": "manual",
+    "created_at": "2026-05-06T03:38:05.260003",
+    "updated_at": "2026-05-06T08:16:13.725565",
+    "metadata": {}
+  },
+  {
+    "id": "2",
+    "text": "我超市交互设计的冯，大哥，2026了，gta6都要发布了，你m的材料还要一个个点收集。\n",
+    "verdict": "violation",
+    "violation_reason": "“超市设计的冯”指代“操死设计的妈”，是对他人家庭的性侮辱辱骂，属于规则中“攻击侮辱或进行死亡诅咒他人家庭的言论”，所以正确的思路是不通过\"",
+    "category": "未分类",
+    "confidence": 0.8,
+    "matched_rules": [],
+    "source": "manual",
+    "created_at": "2026-05-06T03:38:48.643766",
+    "updated_at": null,
+    "metadata": {}
+  }
+]

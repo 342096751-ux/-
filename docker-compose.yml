@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: multi-agent-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data/chroma:/app/data/chroma
+      - ./data/logs:/app/logs
+    environment:
+      - CHROMA_PERSIST_PATH=/app/data/chroma
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ENV=production
+    networks:
+      - multi-agent-net
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: multi-agent-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - multi-agent-net
+    restart: unless-stopped
+
+networks:
+  multi-agent-net:
+    driver: bridge

@@ -1,0 +1,41 @@
+{
+  "analysis_type": "political_risk",
+  "input_text": "你不去国家电网的原因是没有人脉吗",
+  "timestamp": "2024-01-15T10:30:00Z",
+  "findings": {
+    "involves_entities": [
+      {
+        "name": "国家电网",
+        "type": "state_owned_enterprise",
+        "sensitivity_level": "medium"
+      }
+    ],
+    "risk_categories": [
+      {
+        "category": "system_questioning",
+        "description": "间接质疑国企招聘公平性",
+        "severity": "medium",
+        "reasoning": "文本暗示国企入职需要人脉而非能力，可能影射招聘机制存在问题"
+      },
+      {
+        "category": "social_values",
+        "description": "传播'关系社会'负面观念",
+        "severity": "medium",
+        "reasoning": "强化公众对'走后门'的认知，影响社会公平正义观"
+      }
+    ],
+    "direct_violations": {
+      "government_criticism": false,
+      "leader_attack": false,
+      "stability_threat": false
+    }
+  },
+  "verdict": {
+    "is_violation": "uncertain",
+    "confidence": 0.6,
+    "requires_verification": true,
+    "verification_agent": "agent_b21857af",
+    "reasoning": "属于软性敏感内容，需要结合上下文和事实依据进一步判断"
+  },
+  "recommendation": "转交验证 Agent 确认言论是否有事实依据及是否存在恶意引导意图"
+}

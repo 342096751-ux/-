@@ -1,0 +1,79 @@
+{
+  "task_id": "audit_001",
+  "submitted_text": "洛克王国真好玩啊",
+  "agent_results": {
+    "political_agent": {
+      "agent_id": "agent_595f8fc2",
+      "agent_name": "政治",
+      "status": "completed",
+      "risk_detected": false,
+      "confidence": 0.98,
+      "reasoning": "文本中不包含任何政治敏感词汇、政治人物提及或政治事件相关内容。'洛克王国'为游戏名称，与政治无关。",
+      "keywords_found": [],
+      "timestamp": "2025-01-10T10:00:01Z"
+    },
+    "pornographic_agent": {
+      "agent_id": "agent_e15dda6b",
+      "agent_name": "色情",
+      "status": "completed",
+      "risk_detected": false,
+      "confidence": 0.99,
+      "reasoning": "文本中无任何色情低俗词汇、暗示性内容或不适宜的描述。内容为健康的游戏体验分享。",
+      "keywords_found": [],
+      "timestamp": "2025-01-10T10:00:02Z"
+    },
+    "abusive_agent": {
+      "agent_id": "agent_abusive_001",
+      "agent_name": "辱骂",
+      "status": "completed",
+      "risk_detected": false,
+      "confidence": 0.97,
+      "reasoning": "文本语气友好积极，无任何辱骂、攻击、歧视性语言。'真好玩啊'为正面情感表达。",
+      "keywords_found": [],
+      "timestamp": "2025-01-10T10:00:03Z"
+    },
+    "advertisement_agent": {
+      "agent_id": "agent_ad_001",
+      "agent_name": "广告",
+      "status": "completed",
+      "risk_detected": false,
+      "confidence": 0.85,
+      "reasoning": "虽然提及游戏名称'洛克王国'，但属于用户自发的游戏体验分享，非商业推广行为。无联系方式、购买引导、促销信息等广告特征。",
+      "keywords_found": ["洛克王国"],
+      "ad_indicators": {
+        "contact_info": false,
+        "purchase_guidance": false,
+        "promotional_content": false,
+        "commercial_intent": false
+      },
+      "timestamp": "2025-01-10T10:00:04Z"
+    },
+    "sarcasm_agent": {
+      "agent_id": "agent_sarcasm_001",
+      "agent_name": "反讽",
+      "status": "completed",
+      "risk_detected": false,
+      "confidence": 0.92,
+      "reasoning": "文本表达直接真诚，使用感叹词'啊'加强情感，无反讽、阴阳怪气等隐含负面意图的语言特征。",
+      "keywords_found": [],
+      "timestamp": "2025-01-10T10:00:05Z"
+    },
+    "negative_values_agent": {
+      "agent_id": "agent_values_001",
+      "agent_name": "不良价值观",
+      "status": "completed",
+      "risk_detected": false,
+      "confidence": 0.96,
+      "reasoning": "内容为正面的游戏体验分享，传递积极情绪，无宣扬暴力、赌博、拜金等不良价值观的内容。",
+      "keywords_found": [],
+      "timestamp": "2025-01-10T10:00:06Z"
+    }
+  },
+  "overall_assessment": {
+    "total_agents_invoked": 6,
+    "agents_flagging_risk": 0,
+    "highest_risk_score": 0,
+    "consensus": "no_violation"
+  },
+  "timestamp": "2025-01-10T10:00:07Z"
+}
