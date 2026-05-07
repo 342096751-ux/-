@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Streamlit 部署入口：Multi-Agent 审核新界面
-- 保留现有可运行的 audit_system 审核逻辑
+- 只保留审核中心，不再显示旧的管理页
 - 采用更现代的单页仪表盘式布局
 - 便于直接部署到 Streamlit Cloud / deploy
 """
@@ -17,10 +17,9 @@ if str(ROOT) not in sys.path:
 
 import streamlit as st
 
-from audit_system import agent_manager
 from audit_system.orchestrator import run_audit_stream
 
-st.set_page_config(page_title="Multi-Agent 审核中心", page_icon="🛡️", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="Multi-Agent 审核中心", page_icon="🛡️", layout="wide", initial_sidebar_state="collapsed")
 
 CSS = """
 <style>
@@ -77,21 +76,23 @@ def page_audit() -> None:
         unsafe_allow_html=True,
     )
 
-    top1, top2, top3 = st.columns([1.3, 1, 1])
-    with top1:
+    col_left, col_right = st.columns([1.35, 0.9])
+    with col_left:
         text = st.text_area("待审核内容", height=220, placeholder="在此输入待审文本…")
-    with top2:
+    with col_right:
         st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.subheader("快速说明")
-        st.write("• 保留当前可运行逻辑")
-        st.write("• 使用单页仪表盘展示")
-        st.write("• 适合直接部署到 Streamlit Cloud")
+        st.subheader("说明")
+        st.write("• 只保留新审核中心")
+        st.write("• 不再显示旧管理页")
+        st.write("• 适合部署展示")
         st.markdown("</div>", unsafe_allow_html=True)
-    with top3:
+
+        st.markdown("<div style='height:12px'></div>", unsafe_allow_html=True)
         st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.subheader("当前配置")
-        st.write("配置文件", agent_manager.get_config_path().name)
-        st.write("提示词目录", agent_manager.PROMPTS_DIR.name)
+        st.subheader("流程")
+        st.write("1. 提交文本")
+        st.write("2. 串行跑审核链")
+        st.write("3. 展示轨迹与结构化结果")
         st.markdown("</div>", unsafe_allow_html=True)
 
     run_col, clear_col = st.columns([1, 4])
@@ -115,7 +116,14 @@ def page_audit() -> None:
         data = latest.get("data") or {}
         col_a, col_b, col_c, col_d = st.columns(4)
         with col_a:
-            st.metric("最终裁决", str((data.get("final_decisions") or ["-"])[-1] if isinstance(data, dict) else "-"))
+            final_verdict = "-"
+            if isinstance(data, dict):
+                if data.get("final_decisions"):
+                    last = data["final_decisions"][-1]
+                    final_verdict = str(last.get("最终判定") or last.get("判定") or last)
+                else:
+                    final_verdict = str(data.get("intent", {}).get("结论", "-"))
+            st.metric("最终裁决", final_verdict)
         with col_b:
             st.metric("审核步骤", len((data.get("execution_trace") or []) if isinstance(data, dict) else []))
         with col_c:
@@ -139,85 +147,4 @@ def page_audit() -> None:
                     st.caption(f"裁决: {item['data'].get('final_decisions', [])}")
 
 
-def page_agents() -> None:
-    st.markdown(
-        """
-        <div class="hero">
-          <h1>Agent 工作单元管理</h1>
-          <p>维护 work_units_config.yaml 与 prompts/ 下的提示词文件</p>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    agent_manager.ensure_default_config()
-    cfg = agent_manager.load_units_config()
-    units: list = list(cfg.get("units", []))
-
-    st.subheader("已注册的工作单元")
-    for i, u in enumerate(units):
-        if not isinstance(u, dict):
-            continue
-        with st.container(border=True):
-            c1, c2, c3, c4, c5 = st.columns([2.2, 1.4, 2.2, 1, 1])
-            with c1:
-                st.write(f"**{u.get('name','')}**")
-                st.caption(u.get("prompt_file", ""))
-            with c2:
-                st.code(u.get("domain", "—"), language=None)
-            with c3:
-                st.write("启用状态", "是" if u.get("enabled", True) else "否")
-            with c4:
-                if st.button("编辑", key=f"ed_{i}"):
-                    st.session_state[f"editing_{i}"] = True
-            with c5:
-                if st.button("删除", key=f"rm_{i}"):
-                    agent_manager.remove_agent(i)
-                    st.rerun()
-
-            if st.session_state.get(f"editing_{i}"):
-                bn = agent_manager.basename_from_prompt_file(str(u.get("prompt_file", "")))
-                cur = agent_manager.read_prompt_file(bn)
-                new_text = st.text_area(f"提示词：{u.get('name','')}", value=cur, height=260, key=f"ta_{i}")
-                b1, b2 = st.columns(2)
-                with b1:
-                    if st.button("保存", key=f"sv_{i}"):
-                        agent_manager.write_prompt_file(bn, new_text)
-                        st.session_state[f"editing_{i}"] = False
-                        st.rerun()
-                with b2:
-                    if st.button("取消", key=f"cl_{i}"):
-                        st.session_state[f"editing_{i}"] = False
-                        st.rerun()
-
-    st.divider()
-    st.subheader("新增工作单元")
-    with st.form("add_unit"):
-        n_name = st.text_input("显示名称 *", placeholder="如：广告审核员")
-        n_domain = st.text_input("领域代号 * (小写英文)", placeholder="如：ads")
-        n_pf = st.text_input("提示词文件名 *", value="work_unit_custom.txt")
-        n_en = st.checkbox("新建后立即启用", value=True)
-        n_body = st.text_area("提示词内容（可选）", height=180)
-        submitted = st.form_submit_button("添加工作单元")
-        if submitted:
-            agent_manager.add_agent(
-                n_name,
-                n_domain,
-                n_pf,
-                prompt_text=n_body if n_body and n_body.strip() else None,
-                enabled=n_en,
-            )
-            st.success("已添加并写入配置")
-            st.rerun()
-
-
-st.sidebar.title("导航")
-pg = st.sidebar.radio("页面", ("审核中心", "Agent 管理"), key="nav_page")
-st.sidebar.divider()
-st.sidebar.caption("配置路径：" + str(agent_manager.get_config_path()))
-st.sidebar.caption("提示词目录：" + str(agent_manager.PROMPTS_DIR))
-
-if pg == "审核中心":
-    page_audit()
-else:
-    page_agents()
+page_audit()
