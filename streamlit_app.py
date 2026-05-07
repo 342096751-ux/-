@@ -164,7 +164,6 @@ def page_agents():
                     st.error(str(e))
 
 
-# ---- 侧栏 ----
 st.sidebar.title("导航")
 pg = st.sidebar.radio("页面", ("UGC 审核", "Agent 管理"), key="nav_page")
 st.sidebar.divider()
